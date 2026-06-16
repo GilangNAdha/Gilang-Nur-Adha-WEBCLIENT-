@@ -1,0 +1,312 @@
+/* ============================================================
+   EXTERNAL CSS — style.css
+   Dihubungkan ke HTML via: <link rel="stylesheet" href="style.css">
+   ============================================================ */
+
+/* Load font lokal Sloop dari folder font/ */
+@font-face {
+    font-family: "Sloop";
+    src: url("font/Sloop-ScriptThree.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ── Body ──
+   background   : warna latar hitam
+   color        : warna teks putih (properti umum CSS)
+   font-family  : jenis font + fallback
+   scroll-behavior: animasi scroll halus antar section */
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* ============================================================
+   NAVIGASI ATAS — #topnav
+   position: fixed   → menempel di atas walau di-scroll
+   display: flex     → anak-anak tersusun horizontal (Flexbox)
+   border-radius     → sudut membulat (pill shape)
+   ============================================================ */
+#topnav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%); /* geser ke tengah secara horizontal */
+    z-index: 10; /* tampil di atas elemen lain */
+    display: flex; /* Flexbox: anak tersusun horizontal */
+    gap: 6px; /* jarak antar item */
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    padding: 6px 12px;
+}
+
+/* Styling link di nav */
+#topnav a {
+    color: #fff;
+    text-decoration: none; /* hilangkan garis bawah link */
+    font-size: 13px;
+    padding: 5px 14px;
+    border-radius: 50px;
+}
+
+/* Hover effect — background muncul saat cursor di atas link */
+#topnav a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Khusus icon GitHub di nav */
+#topnav a.nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+}
+
+#topnav a.nav-icon img {
+    width: 16px;
+    height: 16px;
+}
+
+/* ============================================================
+   SECTIONS — section
+   min-height: 100vh  → tiap section setinggi layar penuh (vh unit)
+   display: flex      → Flexbox untuk centering konten
+   padding            → jarak dalam section agar tidak ketutup nav
+   ============================================================ */
+section {
+    min-height: 100vh; /* 100vh = setinggi layar (viewport height) */
+    display: flex; /* Flexbox */
+    flex-direction: column; /* susun anak secara vertikal */
+    align-items: center; /* center horizontal */
+    justify-content: center; /* center vertikal */
+    padding: 80px 20px;
+    text-align: center;
+}
+
+/* Pembatas antar section */
+section + section {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================================
+   SECTION HOME — #home
+   position: relative + overflow: hidden agar video absolute
+   ter-clip di dalam section
+   ============================================================ */
+#home {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Video background home
+   position: absolute → terikat di dalam section
+   object-fit: cover  → memenuhi seluruh area
+   filter: grayscale  → efek hitam putih + sedikit gelap */
+   
+#home-bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(0.35) blur(2px);
+    z-index: 0;
+}
+
+/* Teks home tampil di atas video */
+#home > *:not(#home-bg-video) {
+    position: relative;
+    z-index: 1;
+}
+
+/* font-size menggunakan rem (relatif ke root html) */
+#home h1 {
+    font-size: 6rem; /* rem: relatif terhadap font-size root html */
+    margin-bottom: 10px;
+    font-family: "Sloop", cursive;
+}
+
+#home p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 6px;
+}
+
+/* Style untuk tag <mark> agar tampil bagus di latar gelap */
+#home mark {
+    background: rgba(255, 220, 80, 0.35);
+    color: #fff;
+    border-radius: 4px;
+    padding: 0 4px;
+}
+
+/* ============================================================
+   SECTION MUSIC — #music
+   position: relative  → jadi acuan posisi video absolute
+   overflow: hidden    → video tidak keluar dari section
+   ============================================================ */
+#music {
+    position: relative;
+    overflow: hidden;
+    gap: 40px;
+}
+
+/* Video background musik
+   position: absolute  → menempel di dalam section (ikut batas section)
+   inset: 0            → shorthand top/right/bottom/left = 0
+   object-fit: cover   → video memenuhi seluruh area section
+   filter: grayscale   → efek hitam putih
+   z-index: 0          → di belakang konten section */
+
+#music-bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(0.3) blur(4px);
+    z-index: 0;
+}
+
+/* Semua konten langsung di dalam #music tampil di atas video */
+#music > *:not(#music-bg-video) {
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Music Player Card ── */
+#music-player {
+    width: 220px;
+    padding: 14px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Tag <img> album art */
+.music-cover {
+    width: 140px;
+    height: 140px;
+    border-radius: 10px;
+    object-fit: cover; /* gambar tidak gepeng walau ukuran berbeda */
+}
+
+.music-title {
+    font-size: 13px;
+}
+
+.music-artist {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Tombol Play / Pause */
+#playBtn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 20px;
+    padding: 6px 16px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+#playBtn:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+/* Baris progress bar */
+.music-progress {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Baris volume */
+.music-volume {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Styling input range (progress & volume) */
+input[type="range"] {
+    flex: 1;
+    cursor: pointer;
+    accent-color: #fff; /* warna thumb & track */
+}
+
+#about {
+    position: relative;
+    overflow: hidden;
+}
+
+#about-bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    filter: blur(8px); /* zoom in sedikit agar lebih dramatis */
+}
+
+#about > *:not(#about-bg-video) {
+    position: relative;
+    z-index: 1;
+}
+/* ============================================================
+   DOCK NAVIGASI BAWAH — #dock
+   position: fixed  → selalu tampil di bawah layar
+   display: flex    → icon tersusun horizontal
+   ============================================================ */
+#dock {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Icon di dock */
+#dock a,
+#dock img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    transition: transform 0.15s ease; /* animasi hover halus */
+}
+
+/* Hover: icon membesar dan naik */
+#dock a:hover img,
+#dock img:hover {
+    transform: scale(1.35) translateY(-6px);
+}
+
+/* Garis pemisah antar icon */
+.dock-sep {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3);
+}

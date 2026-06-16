@@ -1,0 +1,221 @@
+﻿<!doctype html>
+<html lang="id">
+    <head>
+        <!-- Meta charset: menentukan encoding karakter -->
+        <meta charset="UTF-8" />
+        <!-- Viewport: membuat halaman responsif di HP -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Judul tab browser -->
+        <title>Gilang Nur Adha</title>
+        <!-- Favicon / icon tab -->
+        <link rel="icon" type="image/x-icon" href="icon/Gilang.ico" />
+        <!--
+
+
+        External CSS (wajib UTS) -->
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <!-- ===== NAVIGASI ATAS ===== -->
+        <!-- Nav berisi 3 menu (wajib UTS) dengan anchor link ke section di halaman yang sama -->
+        <nav id="topnav">
+            <a href="#home">Home</a>
+            <a href="#music">Music</a>
+            <a href="#about">About</a>
+            <!-- GitHub: link eksternal, buka di tab baru -->
+            <a
+                href="https://github.com/GilangNAdha"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="nav-icon"
+                title="GitHub"
+            >
+                <img
+                    src="https://cdn.simpleicons.org/github/white"
+                    alt="GitHub"
+                />
+            </a>
+        </nav>
+
+        <!-- ===== SECTION HOME ===== -->
+        <section id="home">
+            <video id="home-bg-video" autoplay muted loop playsinline>
+                <source src="video/background_home.mp4" type="video/mp4" />
+            </video>
+            <!-- Tag formatting teks (wajib UTS): strong, em, mark, u -->
+            <h1><strong>Gilang Nur Adha</strong></h1>
+            <p><em>Sensitive Young man &amp; web explorer.</em></p>
+            <p>
+                Welcome to my <mark>personal space</mark> and enjoy the
+                <u>vibes</u>.
+            </p>
+        </section>
+
+        <!-- ===== SECTION MUSIC ===== -->
+        <section id="music">
+            <!-- Video background dengan filter hitam putih -->
+            <video id="music-bg-video" autoplay muted loop playsinline>
+                <source
+                    src="video/YTDown_YouTube_Sade-Pearls-Live-2011_Media_q98vhT0QhFM_001_1080p.mp4"
+                    type="video/mp4"
+                />
+            </video>
+            <!-- Music Player Card -->
+            <div id="music-player">
+                <!-- Tag img dengan alt (wajib aksesibilitas) -->
+                <img
+                    src="img/Sade_-_The_Best_of_Sade.png"
+                    alt="Album Art"
+                    class="music-cover"
+                />
+                <p class="music-title"><strong>Pearls</strong></p>
+                <p class="music-artist">Sade</p>
+
+                <!-- Elemen audio HTML5 -->
+                <audio
+                    id="audio"
+                    src="audio/Sade - Pearls (Audio) - (320 Kbps).mp3"
+                ></audio>
+
+                <!-- Tombol play/pause â€” dikontrol oleh JavaScript -->
+                <button id="playBtn" onclick="togglePlay()">
+                    &#9654; Play
+                </button>
+
+                <!-- Progress bar lagu -->
+                <div class="music-progress">
+                    <span id="currentTime">0:00</span>
+                    <input
+                        type="range"
+                        id="progressBar"
+                        value="0"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                    />
+                    <span id="duration">0:00</span>
+                </div>
+
+                <!-- Volume -->
+                <div class="music-volume">
+                    <label for="volumeBar">Vol</label>
+                    <input
+                        type="range"
+                        id="volumeBar"
+                        value="100"
+                        min="0"
+                        max="100"
+                    />
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SECTION ABOUT ===== -->
+        <section id="about">
+            <video id="about-bg-video" autoplay muted loop playsinline>
+                <source src="about/about.mp4" type="video/mp4" />
+            </video>
+            <img src="about/about.png" alt="About" style="width: 100%; height: 100%; object-fit: cover;" />
+        </section>
+
+        <!-- ===== DOCK NAVIGASI BAWAH ===== -->
+        <nav id="dock">
+            <a
+                href="https://www.instagram.com/g.verse._/"
+                target="_blank"
+                rel="noopener"
+                title="Instagram"
+            >
+                <img
+                    src="https://framerusercontent.com/images/fZcO2HO3MMDvuS9IcWLgq5MyMc.png"
+                    alt="Instagram"
+                />
+            </a>
+            <div class="dock-sep"></div>
+            <a href="mailto:gilangnuradha56@gmail.com" title="Mail">
+                <img
+                    src="https://framerusercontent.com/images/4ZZQ6ZFOyrBZ3TXhVZjMFK7zbGk.png"
+                    alt="Mail"
+                />
+            </a>
+            <div class="dock-sep"></div>
+            <img src="img/tiktok.png" alt="Tiktok" title="Tiktok" />
+        </nav>
+
+        <!-- ===== JAVASCRIPT (diletakkan di akhir body agar DOM sudah siap) ===== -->
+        <script>
+            // Ambil elemen dari DOM menggunakan getElementById
+            const audio = document.getElementById("audio");
+            const playBtn = document.getElementById("playBtn");
+            const progressBar = document.getElementById("progressBar");
+            const volumeBar = document.getElementById("volumeBar");
+            const currentTimeEl = document.getElementById("currentTime");
+            const durationEl = document.getElementById("duration");
+
+            // Fungsi: ubah detik menjadi format "menit:detik"
+            function formatTime(seconds) {
+                const m = Math.floor(seconds / 60);
+                const s = Math.floor(seconds % 60)
+                    .toString()
+                    .padStart(2, "0");
+                return m + ":" + s;
+            }
+
+            // Fungsi: play atau pause audio
+            function togglePlay() {
+                if (audio.paused) {
+                    audio.play();
+                    playBtn.textContent = "⏸ Pause";
+                } else {
+                    audio.pause();
+                    playBtn.textContent = "▶ Play";
+                }
+            }
+
+            // Event: update progress bar saat lagu berjalan
+            audio.addEventListener("timeupdate", function () {
+                if (audio.duration) {
+                    progressBar.value =
+                        (audio.currentTime / audio.duration) * 100;
+                    currentTimeEl.textContent = formatTime(audio.currentTime);
+                }
+            });
+
+            // Event: tampilkan durasi total setelah audio siap
+            audio.addEventListener("loadedmetadata", function () {
+                durationEl.textContent = formatTime(audio.duration);
+            });
+
+            // Event: reset tombol saat lagu selesai
+            audio.addEventListener("ended", function () {
+                playBtn.textContent = "â–¶ Play";
+                progressBar.value = 0;
+                currentTimeEl.textContent = "0:00";
+            });
+
+            // Event: geser progress bar untuk seek
+            progressBar.addEventListener("input", function () {
+                audio.currentTime = (progressBar.value / 100) * audio.duration;
+            });
+
+            // Event: ubah volume
+            volumeBar.addEventListener("input", function () {
+                audio.volume = volumeBar.value / 100;
+            });
+        </script>
+
+        <!-- ===== DOCK NAVIGASI BAWAH ===== -->
+        <nav id="dock">
+            <a href="https://www.instagram.com/g.verse._/" target="_blank" rel="noopener" title="Instagram">
+                <img src="https://framerusercontent.com/images/fZcO2HO3MMDvuS9IcWLgq5MyMc.png" alt="Instagram" />
+            </a>
+            <div class="dock-sep"></div>
+            <a href="mailto:gilangnuradha56@gmail.com" title="Mail">
+                <img src="https://framerusercontent.com/images/4ZZQ6ZFOyrBZ3TXhVZjMFK7zbGk.png" alt="Mail" />
+            </a>
+            <div class="dock-sep"></div>
+            <img src="img/tiktok.png" alt="Tiktok" title="Tiktok" />
+        </nav>
+
+    </body>
+</html>
